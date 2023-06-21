@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rev_print.c                                        :+:      :+:    :+:   */
+/*   rotone.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilymegy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 22:01:23 by ilymegy           #+#    #+#             */
-/*   Updated: 2023/06/18 22:01:25 by ilymegy          ###   ########.fr       */
+/*   Created: 2023/06/21 11:52:01 by ilymegy           #+#    #+#             */
+/*   Updated: 2023/06/21 11:52:06 by ilymegy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
 
-int	len_it(char *s)
+void	rotone(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	while (*str)
+	{
+		if ((*str >= 'a' && *str <= 'y') || (*str >= 'A' && *str <= 'Y'))
+			(*str)++;
+		else if (*str == 'z')
+			*str = 'a';
+		else if (*str == 'Z')
+			*str = 'A';
+		write(1, str, 1);
+		str++;
+	}
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
-	char *str;
-	int i;
-
-	if (argc == 2)
-	{
-		str = argv[1];
-		i = len_it(str) - 1;
-		while (i >= 0)
-		{
-			write(1, &(str[i]), 1);
-			i--;
-		}
-	}
+	if (ac == 2)
+		rotone(av[1]);
 	write(1, "\n", 1);
 	return (0);
 }

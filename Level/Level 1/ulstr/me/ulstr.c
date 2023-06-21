@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rev_print.c                                        :+:      :+:    :+:   */
+/*   ulstr.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ilymegy <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 22:01:23 by ilymegy           #+#    #+#             */
-/*   Updated: 2023/06/18 22:01:25 by ilymegy          ###   ########.fr       */
+/*   Created: 2023/06/21 12:19:29 by ilymegy           #+#    #+#             */
+/*   Updated: 2023/06/21 12:19:34 by ilymegy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
 
-int	len_it(char *s)
+void	ulstr(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	while (*str)
+	{
+		if (*str >= 'a' && *str <= 'z')
+			*str -= 32;
+		else if (*str >= 'A' && *str <= 'Z')
+			*str += 32;
+		write(1, str, 1);
+		str++;
+	}
 }
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
-	char *str;
-	int i;
-
-	if (argc == 2)
-	{
-		str = argv[1];
-		i = len_it(str) - 1;
-		while (i >= 0)
-		{
-			write(1, &(str[i]), 1);
-			i--;
-		}
-	}
+	if (ac == 2)
+		ulstr(av[1]);
 	write(1, "\n", 1);
-	return (0);
+	return 0;
 }
